@@ -5,5 +5,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 			pauseBtn.click();
     }
 
+    sendResponse({site : "spotify"});
+
     return true;
 });

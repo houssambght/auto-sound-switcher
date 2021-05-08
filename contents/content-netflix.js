@@ -8,5 +8,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 			muteBtn.click();
     }
 
+	sendResponse({site : "netflix"});
+
     return true;
 });
