@@ -1,11 +1,12 @@
 chrome.runtime.onInstalled.addListener(() => {
 	logger.log('Extention Installed');
+	chrome.storage.sync.set({"enableMute": true});
 });
 
 chrome.tabs.onUpdated.addListener(async function (event) {
 
 	let [activeTab] = await chrome.tabs.query({active: true});
-	
+
 	if(activeTab.audible == true) {
 		let tabs = await chrome.tabs.query({audible : true});
 		tabs.forEach(tab => {
