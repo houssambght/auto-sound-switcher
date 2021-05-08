@@ -1,0 +1,37 @@
+{
+  "name": "Auto Sound Switcher",
+  "description": "",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+   {
+     "matches": ["*://*.youtube.com/*"],
+     "js": ["contents/content-youtube.js"],
+     "run_at": "document_end"
+   },
+   {
+     "matches": ["*://open.spotify.com/*"],
+     "js": ["contents/content-spotify.js"],
+     "run_at": "document_end"
+   },
+   {
+     "matches": ["*://*.netflix.com/*"],
+     "js": ["contents/content-netflix.js"],
+     "run_at": "document_end"
+   },
+   {
+     "matches": ["*://*/*"],
+     "js": ["contents/content-default.js"],
+     "run_at": "document_end",
+     "exclude_matches": [
+        "*://*.youtube.com/*",
+        "*://open.spotify.com/*",
+        "*://*.netflix.com/*"
+      ]
+   }
+ ],
+  "permissions": ["tabs", "activeTab"]
+}
