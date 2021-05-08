@@ -13,7 +13,7 @@ input[type="checkbox"]
 }
 input:checked[type="checkbox"]
 {
-	background: #99D856;
+	background: #486D82;
 
 }
 input[type="checkbox"]:before
@@ -37,7 +37,7 @@ input:checked[type="checkbox"]:before
 body{
 	width: 260px;
 	height: 30px;
-	background: #FFF3E4;
+	background: #E2E6E6;
 }
 .label-option{
 	margin: 0;

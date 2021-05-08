@@ -27,7 +27,7 @@ chrome.tabs.onUpdated.addListener(async function (event) {
 
 
 let logger = {
-	enabled : true,
+	enabled : false,
 	log : function(...args) {
 			if(this.enabled) 
 				console.log(...args);
