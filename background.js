@@ -4,13 +4,18 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.tabs.onUpdated.addListener(async function (event) {
-
-	let [activeTab] = await chrome.tabs.query({active: true});
-
-	if(activeTab.audible == true) {
-		let tabs = await chrome.tabs.query({audible : true});
-		tabs.forEach(tab => {
-			if(tab.id !== activeTab.id) {
+		
+	let [activeTab] = await chrome.tabs.query({active: true, currentWindow: true});
+	
+	if(activeTab && activeTab.audible == true) {
+		
+		chrome.windows.getAll({"populate" : true}, function(windows) {
+			
+			windows
+			.flatMap(window => window.tabs)
+			.filter(tab => tab.audible == true)
+			.filter(tab => tab.id !== activeTab.id)
+			.forEach(tab => {
 				chrome.tabs.sendMessage(tab.id, {text: 'pause'}, function(message) {
 					if(message && message.mute === true) {
 						chrome.tabs.update(tab.id, { muted : true });
@@ -19,8 +24,10 @@ chrome.tabs.onUpdated.addListener(async function (event) {
 						logger.log(`${tab.id} ${message.site} paused`);
 					}
 				});
-			}
-		});    	                 
+			});
+			
+		});
+								
 	}
 	
 });
