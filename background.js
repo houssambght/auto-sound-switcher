@@ -8,7 +8,7 @@ chrome.tabs.onUpdated.addListener(async function (event) {
 	let [activeTab] = await chrome.tabs.query({active: true, currentWindow: true});
 	
 	if(activeTab && activeTab.audible == true) {
-		
+			
 		chrome.windows.getAll({"populate" : true}, function(windows) {
 			
 			windows
@@ -32,6 +32,14 @@ chrome.tabs.onUpdated.addListener(async function (event) {
 	
 });
 
+chrome.tabs.onActivated.addListener(async function(event) {
+
+	let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+	if(tab.mutedInfo.muted) {
+		chrome.tabs.update(tab.id, { muted : false });
+	}
+
+});
 
 let logger = {
 	enabled : false,
